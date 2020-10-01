@@ -1,46 +1,59 @@
+
 from tkinter import *
-from PIL import Image,ImageTk
-import tkinter.messagebox as tmsg
-root = Tk() 
-root.geometry("444x234") 
-Scrollbar(root).pack(side=RIGHT,fill=Y)
+from PIL import  ImageTk, Image
 
-def click():
-    tmsg.showinfo("Succesfull.","Thank you for submitting your Email ID and for Rating us!!")
-
-head = Label(text = "NewsLine", bg= "red", fg = "white", padx = 80, pady = 30, font = "comicsansms 19 bold", borderwidth = 10)
-head.pack(fill=X) 
-
-sub = Label(text = "Russia Launches a Destroyer", bg= "grey", fg = "white", padx = 80, pady = 30, font = "comicsansms 19 bold", borderwidth = 10)
-sub.pack() 
-
-f1 = Frame(root, borderwidth = 6, bg = "grey")
-f1.pack(pady=10)
-
-image = Image.open("rocket.jpg")
-photo = ImageTk.PhotoImage(image)
-mylabel1 = Label(f1,image = photo)
-mylabel1.pack()
-
-Label(f1,text="The U.S. government says Russia tested a space weapon earlier this month.").pack()
-Label(f1,text=" Russia says the device, launched July 15, is not a weapon but rather a satellite designed to inspect other satellites.").pack()
-Label(f1,text="But, the U.S. Space Command (USCC) said in a statement that the Russians launched an anti-satellite weapon.").pack()
-
-Label(root,text="Enter your email id to get updates on latest news!!").pack()
-mailid= StringVar()
-Entry(root,textvariable=mailid).pack()
-Label(root,text="Rate us!!").pack()
-Scale(root, from_ = 0, to = 5, orient=HORIZONTAL).pack()
-Button(root, text="Submit",command=click).pack()
+def every_100(text):
+    final_text = ""
+    for i in range(0, len(text)):
+        final_text +=text[i]
+        if i%100==0 and i!=0:
+            final_text += "\n"
+    return final_text
 
 
 
+root = Tk()
+root.title("Headlines Today")
+root.geometry("1000x1000")
+
+texts = []
+photos = []
+for i in range(0, 3):
+    with open(f"{i+1}.txt") as f:
+        text = f.read()
+        texts.append(every_100(text))
+
+    image = Image.open(f"{i+1}.png")
+    #TODO: Resize these images
+    image = image.resize((290, 200), Image.ANTIALIAS)
+    photos.append(ImageTk.PhotoImage(image))
+
+f0 = Frame(root, width=800, height=70)
+Label(f0, text="Headlines Today", font="lucida 40 italic").pack()
+Label(f0, text="October 1, 2020", font="lucida 13 bold").pack()
+f0.pack()
+
+
+f1 = Frame(root, width=900, height=200, pady=14)
+Label(f1, text=texts[0], padx=22, pady=22).pack(side="left", fill = Y)
+Label(f1, image=photos[0], anchor="e").pack(fill = Y)
+f1.pack(anchor="w")
+
+
+f2 = Frame(root, width=900, height=200, pady=14, padx=22)
+Label(f2, text=texts[1], padx=22, pady=22).pack(side="right", fill = Y)
+Label(f2, image=photos[1], anchor="e", padx=22).pack(fill = Y)
+f2.pack(anchor="w")
+
+
+f3 = Frame(root, width=900, height=200, pady=34)
+Label(f3, text=texts[2], padx=22, pady=22).pack(side="left", fill = Y)
+Label(f3, image=photos[2], anchor="e").pack(fill = Y)
+f3.pack(anchor="w")
 
 
 
 
-
-
-
+# root.configure(background = "black")
 root.mainloop()
 
