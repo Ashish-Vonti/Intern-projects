@@ -95,8 +95,8 @@ def about():
 
 #Turning Night Mode On
 def night_on():
-    main_color = "#000000"
-    second_color = "#373737"
+    main_color = "#000000" #Hexcolor code
+    second_color = "#373737" #Hexcolor code
     text_color = "green"
     root.config(bg = main_color)
     TextArea.config(bg=main_color, fg = "red")
