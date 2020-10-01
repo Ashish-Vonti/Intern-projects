@@ -92,14 +92,33 @@ def about():
     statvar.set("Ready")
     stat.update()
     showinfo("Notepad", "Notepad by Me")
+
+#Turning Night Mode On
+def night_on():
+    main_color = "#000000"
+    second_color = "#373737"
+    text_color = "green"
+    root.config(bg = main_color)
+    TextArea.config(bg=main_color, fg = "red")
+    MenuBar.config(bg=main_color, fg = "red")
+    FileMenu.config(bg=main_color, fg = "red")
     
+#Turning Night Mode Off
+def night_off():
+    main_color = "white"
+    second_color = "#373737"
+    text_color = "black"
+    root.config(bg = main_color)
+    TextArea.config(bg=main_color, fg = "black")
+    MenuBar.config(bg=main_color, fg = "black")
+    FileMenu.config(bg=main_color, fg = "black")
 
 
 if __name__ == '__main__':
     #Basic Tkinter Setup
     root = Tk()
     root.title("Untitled - Notepad")
-    # root.wm_iconbitmap("")
+    root.wm_iconbitmap("C:\\Users\\cprit\\Desktop\\News_gui\\whack_notepad.ico")
     root.geometry("644x788")
 
     TextArea = Text(root, font = "lucida 13")
@@ -141,6 +160,15 @@ if __name__ == '__main__':
     EditMenu.add_command(label = "Paste", command = paste)
 
     MenuBar.add_cascade(label = "Edit", menu = EditMenu)
+
+
+    #Options Menu
+    OptionsMenu = Menu(MenuBar, tearoff = 0)
+    #To give a feature of Cut, Copy, Paste
+    OptionsMenu.add_command(label = "Night Mode-ON", command = night_on)
+    OptionsMenu.add_command(label = "Night Mode-OFF", command = night_off)
+
+    MenuBar.add_cascade(label = "Options", menu = OptionsMenu)
 
     #Help Menu
     HelpMenu = Menu(MenuBar, tearoff = 0)
